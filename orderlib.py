@@ -173,7 +173,6 @@ def partitionLoop(A:list, p:int, r:int, x:int) -> "int":
 			return j
 
 
-
 def quicksortLoop(A:list, f:int, b:int) -> "void":
 	while b - f > 32:
 		p = partitionLoop(A, f, b, median([A[f], A[f + ((b - f)//2)], A[b - 1]]))
@@ -183,7 +182,6 @@ def quicksortLoop(A:list, f:int, b:int) -> "void":
 		else:
 			quicksortLoop(A, f, p)
 			f = p
-
 
 
 def quicksortMedian(A:list, f:int, b:int) -> "void":

@@ -1,5 +1,7 @@
 import numpy as np
 from statistics import median
+from math import log
+from math import floor
 
 def insertionSort(A:list) -> "list":
 	# assert(len(A)>0)                # Precondicion
@@ -141,18 +143,16 @@ def max_heapify(A:list, i:int, n:int) -> "void":
 		max_heapify(A, largest, n)
 
 
-def build_max_heap(A:list) -> "void":
-	n = len(A)
+def build_max_heap(A:list, f:int, b:int) -> "void":
 
-	for i in range(n//2, -1, -1):
-		max_heapify(A, i, n)
+	for i in range(b//2, f - 1, -1):
+		max_heapify(A, i, b)
 
 
-def heapSort(A:list) -> "void":
-	n = len(A)
-	build_max_heap(A)
+def heapSort(A:list, f:int, b:int) -> "void":
+	build_max_heap(A, f, b)
 
-	for i in range(n - 1, 0,-1):
+	for i in range(b, f,-1):
 		A[0], A[i] = A[i], A[0]
 		max_heapify(A,0, i)
 
@@ -174,8 +174,8 @@ def partitionLoop(A:list, p:int, r:int, x:int) -> "int":
 
 
 def quicksortLoop(A:list, f:int, b:int) -> "void":
-	while b - f > 32:
-		p = partitionLoop(A, f, b, median([A[f], A[f + ((b - f)//2)], A[b - 1]]))
+	while b - f  + 1> 32:
+		p = partitionLoop(A, f, b, median([A[f], A[f + ((b - f + 1)//2)], A[b]]))
 		if (p - f) >= (b - p):
 			quicksortLoop(A, p, b)
 			b = p
@@ -185,6 +185,22 @@ def quicksortLoop(A:list, f:int, b:int) -> "void":
 
 
 def quicksortMedian(A:list, f:int, b:int) -> "void":
-	# b es la posicion mas alla del final de la secuencia, osea, es len(A) puro.
 	quicksortLoop(A, f, b)
-	insertionSortIndex(A, f, b)
+	insertionSortIndex(A, f, b + 1)
+
+
+def introsortLoop(A:list, f:int, b:int, depthLim:int) -> "void":
+	while (b + 1 - f) > 32:
+		if depthLim == 0:
+			heapSort(A, f, b)
+			return
+		
+		depthLim = depthLim - 1
+		p = partitionLoop(A, f, b, median([A[f], A[f + ((b - f + 1)//2)], A[b]]))
+		introsortLoop(A, p, b, depthLim)
+		b = p
+
+
+def introSort(A:list, f:int, b:int) -> "void":
+	introsortLoop(A, f, b, 2 * floor(log(b - f + 1, 2)))
+	insertionSortIndex(A, f, b + 1)

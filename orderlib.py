@@ -204,3 +204,70 @@ def introsortLoop(A:list, f:int, b:int, depthLim:int) -> "void":
 def introSort(A:list, f:int, b:int) -> "void":
 	introsortLoop(A, f, b, 2 * floor(log(b - f + 1, 2)))
 	insertionSortIndex(A, f, b + 1)
+
+
+def quicksortThreeWay(A:list, l:int, r:int) -> "void":
+	if l + r + 1 >= 32:
+		if r <= 1:
+			return
+
+		i = l - 1
+		j = r
+		p = l - 1
+		q = r
+		v = A[r]
+		
+		while True:
+			foundi = True
+			foundj = True
+			i += 1
+
+			while A[i] <= v and foundi:
+				if A[i] <= v:
+					foundi = False
+				i += 1
+
+			while v <= A[j] and foundj:
+				if j == 0:
+					break
+				if v <= A[j]:
+					foundj = False
+				j -= 1
+
+			if i >= j:
+				break
+
+			A[i], A[j] = A[j], A[i]
+
+			if A[i] == v:
+				p += 1
+				A[p], A[i] = A[i], A[p]
+
+			if A[j] == v:
+				q = q - 1
+				A[j], A[q] = A[q], A[j]
+		
+		A[i], A[r] = A[r], A[i]
+		j = i - 1
+		k = l
+		while k < p:
+			A[k], A[j] = A[j], A[k] 
+			k += 1
+			j -= 1
+		
+		i = i + 1
+		k = r - 1
+		while k > q:
+			A[i], A[k] = A[k], A[i]
+			k -= 1
+			i += 1
+
+		quicksortThreeWay(A, l, j)
+		quicksortThreeWay(A, i, r)
+	else:
+		insertionSortIndex(A, l, r)
+
+
+
+
+

@@ -268,6 +268,46 @@ def quicksortThreeWay(A:list, l:int, r:int) -> "void":
 		insertionSortIndex(A, l, r)
 
 
+def quicksortDual(A:list, left:int, right:int) -> "void":
+	if (right - left + 1) <= 32:
+		insertionSortIndex(A, left, right + 1)
+	else:
+		if A[left] > A[right]:
+			p = A[right]
+			q = A[left]
+		else:
+			p = A[left]
+			q = A[right]
+		
+		l = left + 1
+		g, k = right - 1, l
+		while k <= g:
+			if A[k] < p:
+				A[k], A[l] = A[l], A[k]
+				l += 1
+			else:
+				if A[k] >= q:
+					while A[g] > q and k < g:
+						g -= 1
+					if A[g] >= p:
+						A[k], A[g] = A[g], A[k]
+					else:
+						A[k], A[g] = A[g], A[k]
+						A[k], A[l] = A[l], A[k]
+						l += 1
+					g -= 1
+			k += 1
+		l -= 1
+		g += 1
+		A[left] = A[l]
+		A[l] = p
+		A[right] = A[g]
+		A[g] = q
+		quicksortDual(A, left, l - 1)
+		quicksortDual(A, l + 1, g - 1)
+		quicksortDual(A, g + 1, right)
+
+
 
 
 

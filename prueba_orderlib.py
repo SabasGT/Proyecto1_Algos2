@@ -1,6 +1,7 @@
 import argparse
+import sys
 import numpy as np
-import graficar_puntos as gp
+import graficar_puntos
 from orderlib import *
 from numpy.random import randint
 from numpy.random import rand

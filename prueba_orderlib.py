@@ -1,7 +1,7 @@
 import argparse
 import sys
 import numpy as np
-import graph as g
+import graficar_puntos as gp
 from orderlib import *
 from numpy.random import randint
 from numpy.random import rand
@@ -62,3 +62,5 @@ def generadorArr(t:int, n:int) -> list: # Funciona para generar arreglos aletori
         Arr = arreglo7(n)
     
     return Arr
+
+

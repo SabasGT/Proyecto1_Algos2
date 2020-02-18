@@ -1,13 +1,13 @@
 from orderlib import *
-from prueba_orderlib import *
 import numpy as np
+from numpy.random import rand
 
 
 t = 1
 n = 20
-A = generadorArr(t,n)
+A = rand(n)
 print(A)
-introSort(A, 0, len(A) - 1)
+quickSort(A, 0, len(A))
 print(A)
 
 """

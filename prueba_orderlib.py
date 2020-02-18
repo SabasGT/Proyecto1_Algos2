@@ -1,7 +1,9 @@
 import argparse
 import sys
 import numpy as np
-import graficar_puntos as gp
+import matplotlib.pyplot as plt
+import math
+import numpy as np
 from orderlib import *
 from numpy.random import randint
 from numpy.random import rand
@@ -132,7 +134,7 @@ def algos(Arr:list):  # Funcion para ejecutar los algoritmos
 
     # Corrida Timsort
     start = perf_counter()
-    sort(Arr)
+    sorted(Arr)
     end = perf_counter()
     time_select = (end - start)
     tim.append(time_select)
@@ -154,7 +156,7 @@ def mostrar_resultados(size):  # Funcion para mostrar en pantalla los resultados
     promedios_quick.append(mean(quick))
 
     print("\nTiempo de ejecucion promedio de Median-of-3 Quicksort: " + str("{0:.2f}".format(mean(quick_median))) + "s." +
-          " STD: " + str("{0:.2f}".format(stdev(quick_media))) + "s.")  
+          " STD: " + str("{0:.2f}".format(stdev(quick_median))) + "s.")  
     promedios_quickMedian.append(mean(quick_median))
 
     print("\nTiempo de ejecucion promedio de Introsort: " + str("{0:.2f}".format(mean(intro))) + "s." + 
@@ -195,18 +197,6 @@ def mensaje_Inicial(t:int, size:int):  # Funcion para mostrar en pantalla una bi
 
     elif t == 7:
         print("\nMostrando resultados de la prueba 7: Casi ordenado 2 para el arreglo de tamanyo " + str(n[size]) + ".")
-
-
-def display_graph():  # Funcion para llamar al graficador
-    gp.dibujar_grafica(n, promedios_merge, "Mergesort")
-    gp.dibujar_grafica(n, promedios_quickIter, "Quicksort Iterativo")
-    gp.dibujar_grafica(n, promedios_quick, "Quicksort")
-    gp.dibujar_grafica(n, promedios_quickMedian, "Quicksort Median-of-3")
-    gp.dibujar_grafica(n, promedios_intro, "Introsort")
-    gp.dibujar_grafica(n, promedios_quickWay, "Quicksort with 3-way-partition")
-    gp.dibujar_grafica(n, promedios_tim, "Timsort")
-
-    gp.mostrar_grafico("Numero de elementos", "Tiempo(seg)")
 
 
 def generadorArr(t:int, n:int) -> list: # Funciona para generar arreglos aletorios dependiendo del caso suministrado
@@ -272,6 +262,73 @@ def generadorArr(t:int, n:int) -> list: # Funciona para generar arreglos aletori
     
     return Arr
 
+
+""" FUNCIONES GRAFICAS """
+num_graficas = 0
+marcadores = ['.', 'o', '*', '+', 'v', ',', '^', '<', '>', '1', '2', '3', '4', '5', '6', '7', '8', 's', 'p', 'P']
+color_defecto = "C"
+max_num_def_colores = 10
+
+#
+# Descripción: Encuentra el mejor ajuste de un conjunto de puntos
+#              a un polinomio de orden cuadrático
+#
+# Parametros:
+# x: Lista con las coordenadas del eje X.
+# y: Lista con las coordenadas del eje Y.
+#
+def puntos_cuadraticos(x, y):
+    fit = np.polyfit(x,y,2)
+    fit_fn = np.poly1d(fit)
+    x_new = np.linspace(x[0], x[-1], 50)
+    y_new = fit_fn(x_new)
+    return x_new, y_new  
+
+#
+# Descripción: Dibuja puntos en el plano de la gráfica
+#
+# Parametros:
+# x: Lista con las coordenadas del eje X.
+# y: Lista con las coordenadas del eje Y.
+# nombre: nombre de la grafica
+
+def dibujar_grafica(x, y, nombre):
+    global num_graficas
+    global marcadores
+    global color_defecto
+    global max_num_def_colores
+    marca = marcadores[num_graficas % len(marcadores)]
+    color = color_defecto + str(num_graficas % max_num_def_colores)
+    x_new, y_new = puntos_cuadraticos(x, y)
+    plt.plot(x_new, y_new)
+    plt.plot(x, y, color+marca, label=nombre)
+    num_graficas += 1
+
+#
+# Descripción: Muestra en pantalla el gráfico dibujado
+#
+# Parametros:
+# x_etiqueta: Etiqueta de las coordenadas del eje X.
+# y_etiqueta: Etiqueta de las coordenadas del eje Y.
+    
+def mostrar_grafico(x_etiqueta, y_etiqueta):
+    plt.xlabel(x_etiqueta)
+    plt.ylabel(y_etiqueta)
+    plt.legend(loc=2)
+    plt.legend(bbox_to_anchor=(0.05, 0.95), loc=2, borderaxespad=0.)
+    plt.show()
+
+
+def display_graph():  # Funcion para llamar al graficador
+    dibujar_grafica(n, promedios_merge, "Mergesort")
+    dibujar_grafica(n, promedios_quickIter, "Quicksort Iterativo")
+    dibujar_grafica(n, promedios_quick, "Quicksort")
+    dibujar_grafica(n, promedios_quickMedian, "Quicksort Median-of-3")
+    dibujar_grafica(n, promedios_intro, "Introsort")
+    dibujar_grafica(n, promedios_quickWay, "Quicksort with 3-way-partition")
+    dibujar_grafica(n, promedios_tim, "Timsort")
+
+    mostrar_grafico("Numero de elementos", "Tiempo(seg)")
 
 """ COMIENZA EL PROGRAMA """
 

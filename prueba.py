@@ -3,9 +3,11 @@ from prueba_orderlib import *
 import numpy as np
 
 
-t = 7
-n = 256
+t = 1
+n = 20
 A = generadorArr(t,n)
+print(A)
+introSort(A, 0, len(A) - 1)
 print(A)
 
 """

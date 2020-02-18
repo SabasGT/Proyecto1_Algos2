@@ -4,6 +4,7 @@ from math import log
 from math import floor
 
 def insertionSort(A:list) -> "list":
+	# Insertionsort tan solo recibe el arreglo a ser ordenado
 	# assert(len(A)>0)                # Precondicion
 	# assert(A == sorted(A_original)) # Postcondicion
 	for i in range(1, len(A)):
@@ -17,6 +18,7 @@ def insertionSort(A:list) -> "list":
 
 
 def merge(L:list, R:list, A:list) -> "void":
+	# Merge se encarga de recibir 3 listas, 2 listas L y R las cuales combina en la lista A.
 	infinito = float("inf")
 	i, j = 0,0
 
@@ -33,7 +35,8 @@ def merge(L:list, R:list, A:list) -> "void":
 
 
 def mergeSort(A:list) -> "void":
-	# assert(len(A)>0) # Precondicion
+	# Mergesort tan solo recibe el arreglo a ser ordenado
+	# assert(len(A)>0)                # Precondicion
 	# assert(A == sorted(A_original)) # Postcondicion
 	if len(A) <= 32:
 		insertionSort(A)
@@ -46,6 +49,9 @@ def mergeSort(A:list) -> "void":
 
 
 def quicksortIter(A:list) -> "void":
+	# Quicksort tan solo recibe el arreglo a ser ordenado
+	# assert(len(A)>0)                # Precondicion
+	# assert(A == sorted(A_original)) # Postcondicion
 	n, m = 0, 1
 	tam = len(A)
 
@@ -86,6 +92,10 @@ def quicksortIter(A:list) -> "void":
 
 
 def insertionSortIndex(A:list, p:int, r:int) -> "void":
+	# InsertionsortIndez recibe la lista A a ser ordenada y los enteros mayores o iguales que 0 p y r.
+	# Para una correcta inicializacion, p debe ser 0 y r debe ser la longitud de A (len(A)).
+	# assert(len(A)>0 and p >= 0 and r >= 0)  # Precondicion
+	# assert(A == sorted(A_original))         # Postcondicion
 	for j in range(p, r):
 		key = A[j]
 		i = j - 1
@@ -96,6 +106,7 @@ def insertionSortIndex(A:list, p:int, r:int) -> "void":
 
 
 def partition(A:list, p:int, r:int) -> int:
+	# Partition recibe la lista a ordenar A y los enteros mayores o iguales que 0 p y r.
 	x = A[r]
 	i = p - 1
 	for j in range(p,r):
@@ -107,7 +118,10 @@ def partition(A:list, p:int, r:int) -> int:
 
 
 def quickSort(A:list, p:int, r:int) -> "void":
-	# Correcta inicializacion con p = 0 y r = len(A) - 1
+	# Quicksort recibe la lista A a ordenar y los enteros p y r mayores o iguales que 0.
+	# Para una correcta inicializacion p debe ser 0 y r la longitud de A (len(A)).
+	# assert(len(A)>0 and p >= 0 and r >= 0)  # Precondicion
+	# assert(A == sorted(A_original))         # Postcondicion
 	if p + r + 1 <= 32:
 		insertionSortIndex(A, p, r)
 	else:
@@ -118,16 +132,23 @@ def quickSort(A:list, p:int, r:int) -> "void":
 
 
 def right(i:int) -> int:
+	# Right solo se encarga de recibir un entero i y obtener un valor k = 2i + 1.
+	# assert(i >= 0)
+	# assert(k = 2*i + 1)
 	k = 2*i + 1
 	return k
 
 
 def left(i:int) -> int:
+	# Left solo se encarga de recibir un entero i y obtener un valor k = 2i.
+	# assert(i >= 0)
+	# assert(k = 2*i)
 	k = 2*i
 	return k
 
 
 def max_heapify(A:list, i:int, n:int) -> "void":
+	# Max_Heapify recibe la lista A y los enteros mayores o iguales que 0 i e n.
 	l = left(i)
 	r = right(i)
 	if l < n and A[l] > A[i]:
@@ -144,20 +165,24 @@ def max_heapify(A:list, i:int, n:int) -> "void":
 
 
 def build_max_heap(A:list, f:int, b:int) -> "void":
-
+	# Build_Max_Heap recibe la lista A y los enteros f y b mayores o iguales que 0.
 	for i in range(b//2, f - 1, -1):
 		max_heapify(A, i, b)
 
 
 def heapSort(A:list, f:int, b:int) -> "void":
+	# Heapsort recibe la lista A a ser ordenada y los enteros mayores o iguales que 0 f y b.
+	# Para una correcta inicializacion, f debe ser 0 y b debe ser la longitud de A menos 1 (len(A) - 1).
+	# assert(len(A)>0 and f >= 0 and b >= 0)  # Precondicion
+	# assert(A == sorted(A_original))         # Postcondicion
 	build_max_heap(A, f, b)
-
 	for i in range(b, f,-1):
 		A[0], A[i] = A[i], A[0]
 		max_heapify(A,0, i)
 
 
 def partitionLoop(A:list, p:int, r:int, x:int) -> "int":
+	# Partition_Loop recibe la lista A y los enteros mayores o iguales que 0 p, r y x.
 	i = p - 1
 	j = r
 	while True:
@@ -174,6 +199,7 @@ def partitionLoop(A:list, p:int, r:int, x:int) -> "int":
 
 
 def quicksortLoop(A:list, f:int, b:int) -> "void":
+	# QuicksortLoop recibe la lista A a ser ordenada y los enteros mayores o iguales que 0 f y b.
 	while b - f  + 1> 32:
 		p = partitionLoop(A, f, b, median([A[f], A[f + ((b - f + 1)//2)], A[b]]))
 		if (p - f) >= (b - p):
@@ -185,11 +211,16 @@ def quicksortLoop(A:list, f:int, b:int) -> "void":
 
 
 def quicksortMedian(A:list, f:int, b:int) -> "void":
+	# QuicksortMedian recibe la lista A a ser ordenada y los enteros mayores o iguales que 0 f y b.
+	# Para una correcta inicializacion, f debe ser 0 y b debe ser la longitud de A menos 1 (len(A) - 1).
+	# assert(len(A)>0 and f >= 0 and b >= 0)  # Precondicion
+	# assert(A == sorted(A_original))         # Postcondicion
 	quicksortLoop(A, f, b)
 	insertionSortIndex(A, f, b + 1)
 
 
 def introsortLoop(A:list, f:int, b:int, depthLim:int) -> "void":
+	# QuicksortLoop recibe la lista A a ser ordenada y los enteros mayores o iguales que 0 f, b y depthLim.
 	while (b + 1 - f) > 32:
 		if depthLim == 0:
 			heapSort(A, f, b)
@@ -202,11 +233,19 @@ def introsortLoop(A:list, f:int, b:int, depthLim:int) -> "void":
 
 
 def introSort(A:list, f:int, b:int) -> "void":
+	# Introsort recibe la lista A a ser ordenada y los enteros mayores o iguales que 0 f y b.
+	# Para una correcta inicializacion, f debe ser 0 y b debe ser la longitud de A menos 1 (len(A) - 1).
+	# assert(len(A)>0 and f >= 0 and b >= 0)  # Precondicion
+	# assert(A == sorted(A_original))         # Postcondicion
 	introsortLoop(A, f, b, 2 * floor(log(b - f + 1, 2)))
 	insertionSortIndex(A, f, b + 1)
 
 
 def quicksortThreeWay(A:list, l:int, r:int) -> "void":
+	# QuicksortThreeWay recibe la lista A a ordenar y los enteros l y r mayores o iguales que 0.
+	# Para una correcta inicializacion l debe ser 0 y r la longitud de A menos 1 (len(A) - 1).
+	# assert(len(A)>0 and p >= 0 and r >= 0)  # Precondicion
+	# assert(A == sorted(A_original))         # Postcondicion
 	if l + r + 1 >= 32:
 		if r <= 1:
 			return
@@ -269,6 +308,10 @@ def quicksortThreeWay(A:list, l:int, r:int) -> "void":
 
 
 def quicksortDual(A:list, left:int, right:int) -> "void":
+	# QuicksortDual recibe la lista A a ordenar y los enteros left y right mayores o iguales que 0.
+	# Para una correcta inicializacion left debe ser 0 y right la longitud de A menos 1 (len(A) - 1).
+	# assert(len(A)>0 and p >= 0 and r >= 0)  # Precondicion
+	# assert(A == sorted(A_original))         # Postcondicion
 	if (right - left + 1) <= 32:
 		insertionSortIndex(A, left, right + 1)
 	else:

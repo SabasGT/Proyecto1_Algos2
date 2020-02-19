@@ -3,7 +3,6 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import math
-import numpy as np
 from orderlib import *
 from numpy.random import randint
 from numpy.random import rand

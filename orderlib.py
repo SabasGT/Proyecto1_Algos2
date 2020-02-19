@@ -191,8 +191,7 @@ def partitionLoop(A:list, p:int, r:int, x:int) -> "int":
 
 		while A[i] < x:
 			i = i + 1
-
-		if i < j:
+		if i > j:
 			A[i], A[j] = A[j], A[i]
 		else:
 			return j
@@ -225,7 +224,6 @@ def introsortLoop(A:list, f:int, b:int, depthLim:int) -> "void":
 		if depthLim == 0:
 			heapSort(A, f, b)
 			return
-		
 		depthLim = depthLim - 1
 		p = partitionLoop(A, f, b, median([A[f], A[f + ((b - f + 1)//2)], A[b]]))
 		introsortLoop(A, p, b, depthLim)

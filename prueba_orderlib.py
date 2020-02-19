@@ -85,6 +85,7 @@ def algos(Arr:list):  # Funcion para ejecutar los algoritmos
     mergesort.append(time_select)
 
     Arr = list(ArrCopy)
+    print("listo 1")
 
     # Corrida Quicksort Iterativo
     start = perf_counter()
@@ -94,15 +95,17 @@ def algos(Arr:list):  # Funcion para ejecutar los algoritmos
     quick_iter.append(time_select)
 
     Arr = list(ArrCopy)
+    print("listo 2")
 
     # Corrida Quicksort
     start = perf_counter()
-    quickSort(Arr, 0, len(Arr))
+    quickSort(Arr, 0, len(Arr) - 1)
     end = perf_counter()
     time_select = (end - start)
     quick.append(time_select)
 
     Arr = list(ArrCopy)
+    print("listo 3")
 
     # Corrida Quicksort Median of 3
     start = perf_counter()
@@ -111,12 +114,18 @@ def algos(Arr:list):  # Funcion para ejecutar los algoritmos
     time_select = (end - start)
     quick_median.append(time_select)
 
+    Arr = list(ArrCopy)
+    print("listo 4")
+
     # Corrida Introsort
     start = perf_counter()
     introSort(Arr, 0, len(Arr) - 1)
     end = perf_counter()
     time_select = (end - start)
     intro.append(time_select)
+
+    Arr = list(ArrCopy)
+    print("listo 5")
 
     # Corrida Quicksort with 3-way-partitioning
     start = perf_counter()
@@ -125,6 +134,9 @@ def algos(Arr:list):  # Funcion para ejecutar los algoritmos
     time_select = (end - start)
     quick_way.append(time_select)
 
+    Arr = list(ArrCopy)
+    print("listo 6")
+
     # Corrida Dual Pivot Quicksort
     start = perf_counter()
     quicksortDual(Arr, 0, len(Arr) - 1)
@@ -132,12 +144,17 @@ def algos(Arr:list):  # Funcion para ejecutar los algoritmos
     time_select = (end - start)
     quick_dual.append(time_select)
 
+    Arr = list(ArrCopy)
+    print("listo 7")
+
     # Corrida Timsort
     start = perf_counter()
     sorted(Arr)
     end = perf_counter()
     time_select = (end - start)
     tim.append(time_select)
+
+    print("listo 8")
 
 
 def mostrar_resultados(size):  # Funcion para mostrar en pantalla los resultados de las pruebas acordes

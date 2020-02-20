@@ -97,14 +97,14 @@ def algos(Arr:list):  # Funcion para ejecutar los algoritmos
 
     ArrCopy = Arr[:]
     print("listo 2")
-
+    """
     # Corrida Quicksort
     start = perf_counter()
     quickSort(ArrCopy, 0, len(ArrCopy) - 1)
     end = perf_counter()
     time_select = (end - start)
     quick.append(time_select)
-
+    """
     ArrCopy = Arr[:]
     print("listo 3")
 

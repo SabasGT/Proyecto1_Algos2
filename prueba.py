@@ -5,6 +5,9 @@ from numpy.random import randint
 from numpy.random import rand
 from numpy.random import choice
 from random import randrange
+import sys
+
+sys.setrecursionlimit(1000000000)
 
 def generadorArr(t:int, n:int) -> list: # Funciona para generar arreglos aletorios dependiendo del caso suministrado
     # t es un entero que indica cual prueba de la 1 a la 7 se va a realizar y n es el entero que señala el numero
@@ -123,10 +126,10 @@ def algos(Arr:list):  # Funcion para ejecutar los algoritmos
     print("listo 8")
 
 
-#t = choice([1,2,3,4,5,6,7])
-t = 1
-n = 200
+t = 7
+n = 32000
 
 A = generadorArr(t,n)
 print(A)
-quicksortMedian(A,0,n - 1)
+quickSort(A,0,n - 1)
+print(A)

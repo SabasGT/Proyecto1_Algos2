@@ -124,7 +124,7 @@ def quickSort(A:list, p:int, r:int) -> "void":
 	# assert(A == sorted(A_original))         # Postcondicion
 	if p + r + 1 <= 32:
 		insertionSortIndex(A, p, r)
-	else:
+	elif p < r:
 		q = partition(A,p,r)
 		quickSort(A,p,q-1)
 		quickSort(A,q,r)

@@ -12,6 +12,8 @@ from time import perf_counter
 from math import sqrt
 from statistics import mean, stdev
 
+sys.setrecursionlimit(10000000)
+
 """ARGPARSE"""
 
 # Inicializar el argparse
@@ -74,81 +76,81 @@ print("g=" + str(g))
 
 
 def algos(Arr:list):  # Funcion para ejecutar los algoritmos
-    ArrCopy = list(Arr)
+    ArrCopy = Arr[:]
 
     # Corrida Mergesort
     start = perf_counter() # Inicio tiempo de ejecucion
-    mergeSort(Arr)
+    mergeSort(ArrCopy)
     end = perf_counter()   # Fin tiempo de ejecucion
     time_select = (end - start)
     mergesort.append(time_select)
 
-    Arr = list(ArrCopy)
+    ArrCopy = Arr[:]
     print("listo 1")
 
     # Corrida Quicksort Iterativo
     start = perf_counter()
-    quicksortIter(Arr)
+    quicksortIter(ArrCopy)
     end = perf_counter()
     time_select = (end - start)
     quick_iter.append(time_select)
 
-    Arr = list(ArrCopy)
+    ArrCopy = Arr[:]
     print("listo 2")
 
     # Corrida Quicksort
     start = perf_counter()
-    quickSort(Arr, 0, len(Arr) - 1)
+    quickSort(ArrCopy, 0, len(ArrCopy) - 1)
     end = perf_counter()
     time_select = (end - start)
     quick.append(time_select)
 
-    Arr = list(ArrCopy)
+    ArrCopy = Arr[:]
     print("listo 3")
 
     # Corrida Quicksort Median of 3
     start = perf_counter()
-    quicksortMedian(Arr, 0, len(Arr) - 1)
+    quicksortMedian(ArrCopy, 0, len(ArrCopy) - 1)
     end = perf_counter()
     time_select = (end - start)
     quick_median.append(time_select)
 
-    Arr = list(ArrCopy)
+    ArrCopy = Arr[:]
     print("listo 4")
 
     # Corrida Introsort
     start = perf_counter()
-    introSort(Arr, 0, len(Arr) - 1)
+    introSort(ArrCopy, 0, len(ArrCopy) - 1)
     end = perf_counter()
     time_select = (end - start)
     intro.append(time_select)
 
-    Arr = list(ArrCopy)
+    ArrCopy = Arr[:]
     print("listo 5")
 
     # Corrida Quicksort with 3-way-partitioning
     start = perf_counter()
-    quicksortThreeWay(Arr, 0, len(Arr) - 1)
+    quicksortThreeWay(ArrCopy, 0, len(ArrCopy) - 1)
     end = perf_counter()
     time_select = (end - start)
     quick_way.append(time_select)
 
-    Arr = list(ArrCopy)
+    ArrCopy = Arr[:]
     print("listo 6")
 
     # Corrida Dual Pivot Quicksort
     start = perf_counter()
-    quicksortDual(Arr, 0, len(Arr) - 1)
+    quicksortDual(ArrCopy, 0, len(ArrCopy) - 1)
     end = perf_counter()
     time_select = (end - start)
     quick_dual.append(time_select)
 
-    Arr = list(ArrCopy)
+    ArrCopy = Arr[:]
     print("listo 7")
 
     # Corrida Timsort
     start = perf_counter()
-    sorted(Arr)
+    sorted(ArrCopy)
     end = perf_counter()
     time_select = (end - start)
     tim.append(time_select)
